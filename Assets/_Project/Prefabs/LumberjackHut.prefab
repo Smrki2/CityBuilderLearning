@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7735569760974705363}
   - component: {fileID: 6882146685956781374}
   - component: {fileID: 2696339964397218973}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: LumberjackHut
   m_TagString: Untagged
   m_Icon: {fileID: 0}

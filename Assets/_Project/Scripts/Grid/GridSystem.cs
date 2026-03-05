@@ -1,3 +1,4 @@
+using UnityEditor;
 using UnityEngine;
 
 public class GridSystem : MonoBehaviour
@@ -33,5 +34,14 @@ public class GridSystem : MonoBehaviour
     public void Awake()
     {
         GridInitialization();
+    }
+
+    private void OnDrawGizmos()
+    {
+        for(int i =0; i < gridSize.x; i++)
+        {
+            Gizmos.DrawLine(new Vector3(0, 0, i), new Vector3(gridSize.x, 0, i));
+            Gizmos.DrawLine(new Vector3(i, 0, 0), new Vector3(i, 0, gridSize.y));
+        }
     }
 }

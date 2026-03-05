@@ -155,6 +155,9 @@ MonoBehaviour:
   gridSystem: {fileID: 305594926}
   placeBuildingAction: {fileID: 4219744007288840994, guid: 9a2bbaa9678d83a40b6dc08fec465fd6, type: 3}
   prefab: {fileID: 11400000, guid: c96364df192346247bf85724ec766b22, type: 2}
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 192
 --- !u!114 &117850931
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -390,7 +393,7 @@ GameObject:
   - component: {fileID: 1231983187}
   - component: {fileID: 1231983186}
   - component: {fileID: 1231983185}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
