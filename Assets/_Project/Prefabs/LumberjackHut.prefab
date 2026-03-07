@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7735569760974705363}
   - component: {fileID: 6882146685956781374}
   - component: {fileID: 2696339964397218973}
+  - component: {fileID: 7368352376155852806}
   m_Layer: 7
   m_Name: LumberjackHut
   m_TagString: Untagged
@@ -112,3 +113,16 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &7368352376155852806
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 333007420578089407}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b885f0b6b7cb5794c8c6108b45c18467, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ProductionBuilding
+  buildingDataSO: {fileID: 11400000, guid: c96364df192346247bf85724ec766b22, type: 2}
