@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class ProductionBuilding : MonoBehaviour
 {
+    // ------------ TREBALO BI DA SE NAPRAVI BUILDING KLASA KOJA CE DA BUDE MAIN I DECA BUDU PRODUCTION BUILDINZI ITD OSTALE KLASE BUILDINGA
     [SerializeField] BuildingDataSO buildingDataSO;
     float productionTime;
     float buildingCost, buildingProduction, buildingConsumption;
@@ -13,7 +14,6 @@ public class ProductionBuilding : MonoBehaviour
     {
         buildingCost = buildingDataSO.resourceCost;
         buildingCostType = buildingDataSO.resourceTypeCost;
-        ResourceManager.instance.Spend(buildingCostType, buildingCost);
         buildingProduction = buildingDataSO.resourceProduction;
         buildingProductionType = buildingDataSO.resourceTypeProduction;
         buildingConsumption = buildingDataSO.resourceConsumption;

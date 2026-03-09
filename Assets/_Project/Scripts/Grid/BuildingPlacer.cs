@@ -34,23 +34,22 @@ public class BuildingPlacer : MonoBehaviour
                 if (pos.x >= 0 && pos.x < gridSystem.gridSize.x && pos.y >= 0 && pos.y < gridSystem.gridSize.y)
                     if (!gridSystem.GetCellState(pos))
                     {
-                        Vector3 place = new Vector3(gridSystem.GetCell(pos).cellPosition.x + 0.5f, selectedBuilding.buildingPrefab.GetComponent<Renderer>().bounds.size.y / 2, gridSystem.GetCell(pos).cellPosition.y + 0.5f);
-                        placedBuilding = Instantiate(selectedBuilding.buildingPrefab, place, selectedBuilding.buildingPrefab.transform.rotation);
-                        placedBuilding.GetComponent<BuildingInstance>().GridPosition = pos;
-                        gridSystem.GetCell(pos).isUsed = true;
-                        gridSystem.GetCell(pos).building = placedBuilding;
-                        gridSystem.GetCell(pos).buildingType = selectedBuilding;
+                        if (ResourceManager.instance.Spend(selectedBuilding.resourceTypeCost, selectedBuilding.resourceCost))
+                        {
+                            Vector3 place = new Vector3(gridSystem.GetCell(pos).cellPosition.x + 0.5f, selectedBuilding.buildingPrefab.GetComponent<Renderer>().bounds.size.y / 2, gridSystem.GetCell(pos).cellPosition.y + 0.5f);
+                            placedBuilding = Instantiate(selectedBuilding.buildingPrefab, place, selectedBuilding.buildingPrefab.transform.rotation);
+                            placedBuilding.GetComponent<BuildingInstance>().GridPosition = pos;
+                            gridSystem.GetCell(pos).isUsed = true;
+                            gridSystem.GetCell(pos).building = placedBuilding;
+                            gridSystem.GetCell(pos).buildingType = selectedBuilding;
+                        }
                     }
             }
             else if(hit.collider.gameObject.layer == LayerMask.NameToLayer("Building") && demolishMode)
             {
                 BuildingInstance instance = hit.collider.gameObject.GetComponent<BuildingInstance>();
                 if (instance == null)
-                {
-                    Debug.Log(instance);
-                    Debug.Log(hit.collider.gameObject.name);
-                    return; 
-                }
+                    return;
                 gridSystem.GetCell(instance.GridPosition).isUsed = false;
                 Destroy(hit.collider.gameObject);
             }
