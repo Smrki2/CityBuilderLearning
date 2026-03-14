@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 
 public class ResourceManager : MonoBehaviour
@@ -23,11 +24,20 @@ public class ResourceManager : MonoBehaviour
 
     public void Add(ResourceType type, float value)
     {
-        resourceManager[type] += value;
+        if (!resourceManager.ContainsKey(type))
+        {
+            resourceManager[type] = value;
+        }
+        else
+            resourceManager[type] += value;
     }
 
     public bool Spend(ResourceType type, float value)
     {
+        if (!resourceManager.ContainsKey(type))
+        {
+            resourceManager[type] = 0;
+        }
         if (resourceManager[type] >= value)
         {
             resourceManager[type] -= value;
@@ -38,6 +48,10 @@ public class ResourceManager : MonoBehaviour
 
     public float Get(ResourceType type)
     {
+        if (!resourceManager.ContainsKey(type))
+        {
+            resourceManager[type] = 0;
+        }
         return resourceManager[type];
     }
 }

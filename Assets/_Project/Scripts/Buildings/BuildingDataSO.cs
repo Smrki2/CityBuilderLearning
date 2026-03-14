@@ -7,6 +7,7 @@ public class BuildingDataSO : ScriptableObject
     public string buildingName;
     public GameObject buildingPrefab;
     public Vector2Int buildingSize;
+    public BuildingType buildingType;
     public ResourceType resourceTypeProduction;
     public float resourceProduction;
     public ResourceType resourceTypeConsumption;
@@ -14,5 +15,6 @@ public class BuildingDataSO : ScriptableObject
     public ResourceType resourceTypeCost;
     public float resourceCost;
     public float productionTime;
+    public float maxCapacity;
 }
 
