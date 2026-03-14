@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Storage
   m_EditorClassIdentifier: Assembly-CSharp::BuildingDataSO
   buildingName: Storage
-  buildingPrefab: {fileID: 0}
+  buildingPrefab: {fileID: 1526382761001823333, guid: 2c0185de154e0b346af748c09d7410eb, type: 3}
   buildingSize: {x: 1, y: 1}
   buildingType: 1
   resourceTypeProduction: 0
@@ -23,3 +23,4 @@ MonoBehaviour:
   resourceTypeCost: 0
   resourceCost: 2
   productionTime: 0
+  maxCapacity: 50

@@ -15,6 +15,7 @@ MonoBehaviour:
   buildingName: StoneMine
   buildingPrefab: {fileID: 7133125726522113907, guid: 9f53b3655633d7a479c3eb272ce563cc, type: 3}
   buildingSize: {x: 1, y: 1}
+  buildingType: 0
   resourceTypeProduction: 1
   resourceProduction: 1
   resourceTypeConsumption: 1
@@ -22,3 +23,4 @@ MonoBehaviour:
   resourceTypeCost: 1
   resourceCost: 0
   productionTime: 2
+  maxCapacity: 5

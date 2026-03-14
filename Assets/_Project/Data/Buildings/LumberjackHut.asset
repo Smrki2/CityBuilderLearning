@@ -15,6 +15,7 @@ MonoBehaviour:
   buildingName: LumberjackHut
   buildingPrefab: {fileID: 333007420578089407, guid: a6fa344dec0b316489afc8aff5972fd1, type: 3}
   buildingSize: {x: 1, y: 1}
+  buildingType: 0
   resourceTypeProduction: 0
   resourceProduction: 1
   resourceTypeConsumption: 0
@@ -22,3 +23,4 @@ MonoBehaviour:
   resourceTypeCost: 0
   resourceCost: 0
   productionTime: 2
+  maxCapacity: 5
