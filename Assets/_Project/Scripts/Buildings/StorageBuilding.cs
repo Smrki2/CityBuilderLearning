@@ -53,7 +53,7 @@ public class StorageBuilding : MonoBehaviour
     public bool HasSpace(float value)
     {
         float storageSum = storage.Values.Sum();
-        if (buildingDataSO.maxCapacity - storageSum > value)
+        if (maxCapacity - storageSum > value)
             return true;
         else 
             return false;

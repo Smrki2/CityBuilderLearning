@@ -1,4 +1,5 @@
-using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class ProductionBuilding : MonoBehaviour
@@ -9,6 +10,9 @@ public class ProductionBuilding : MonoBehaviour
     private float buildingCost, buildingProduction, buildingConsumption;
     private ResourceType buildingCostType, buildingProductionType, buildingConsumptionType;
     private float timer = 0;
+    private float inputCapacity, outputCapacity;
+    private Dictionary<ResourceType, float> inputStorage;
+    private Dictionary<ResourceType, float> outputStorage;
 
     private void Awake()
     {
@@ -19,6 +23,10 @@ public class ProductionBuilding : MonoBehaviour
         buildingConsumption = buildingDataSO.resourceConsumption;
         buildingConsumptionType = buildingDataSO.resourceTypeConsumption;
         productionTime = buildingDataSO.productionTime;
+        inputCapacity = buildingDataSO.maxCapacity;
+        outputCapacity = buildingDataSO.maxCapacity;
+        inputStorage = new Dictionary<ResourceType, float>();
+        outputStorage = new Dictionary<ResourceType, float>();
     }
 
     private void Update()
@@ -33,6 +41,22 @@ public class ProductionBuilding : MonoBehaviour
 
     private void Produce()
     {
+        float currentInput = inputStorage.Values.Sum();
+        if (currentInput < buildingConsumption)
+            return;
+        float currentOutput = outputStorage.Values.Sum();
+        if (currentOutput + buildingProduction > outputCapacity)
+            return;
+
+        if (outputStorage.ContainsKey(buildingProductionType))
+        {
+            outputStorage[buildingProductionType] += buildingProduction;
+        }
+        else
+        {
+            outputStorage[buildingProductionType] = buildingProduction;
+        }
+
         ResourceManager.instance.Add(buildingProductionType, buildingProduction);
         ResourceManager.instance.Spend(buildingConsumptionType, buildingConsumption);
     }
