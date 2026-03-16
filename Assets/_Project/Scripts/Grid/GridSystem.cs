@@ -1,8 +1,8 @@
-using UnityEditor;
 using UnityEngine;
 
 public class GridSystem : MonoBehaviour
 {
+    public static GridSystem instance;
     public GridCell[,] grid;
     [SerializeField] public Vector2Int gridSize;
 
@@ -33,6 +33,13 @@ public class GridSystem : MonoBehaviour
 
     public void Awake()
     {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+            Destroy(gameObject);
+
         GridInitialization();
     }
 
