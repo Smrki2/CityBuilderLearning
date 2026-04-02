@@ -4,7 +4,6 @@ using UnityEngine.InputSystem;
 public class BuildingPlacer : MonoBehaviour
 {
     private Camera camera;
-    [SerializeField] private GridSystem gridSystem;
     [SerializeField] private InputActionReference placeBuildingAction;
     [SerializeField] LayerMask layerMask;
 
@@ -31,17 +30,17 @@ public class BuildingPlacer : MonoBehaviour
                 if (selectedBuilding == null)
                     return;
                 Vector2Int pos = new Vector2Int((int)Mathf.Floor(hit.point.x), (int)Mathf.Floor(hit.point.z));
-                if (pos.x >= 0 && pos.x < gridSystem.gridSize.x && pos.y >= 0 && pos.y < gridSystem.gridSize.y)
-                    if (!gridSystem.GetCellState(pos))
+                if (pos.x >= 0 && pos.x < GridSystem.instance.gridSize.x && pos.y >= 0 && pos.y < GridSystem.instance.gridSize.y)
+                    if (!GridSystem.instance.GetCellState(pos))
                     {
                         if (ResourceManager.instance.Spend(selectedBuilding.resourceTypeCost, selectedBuilding.resourceCost))
                         {
-                            Vector3 place = new Vector3(gridSystem.GetCell(pos).cellPosition.x + 0.5f, selectedBuilding.buildingPrefab.GetComponent<Renderer>().bounds.size.y / 2, gridSystem.GetCell(pos).cellPosition.y + 0.5f);
+                            Vector3 place = new Vector3(GridSystem.instance.GetCell(pos).cellPosition.x + 0.5f, selectedBuilding.buildingPrefab.GetComponent<Renderer>().bounds.size.y / 2, GridSystem.instance.GetCell(pos).cellPosition.y + 0.5f);
                             placedBuilding = Instantiate(selectedBuilding.buildingPrefab, place, selectedBuilding.buildingPrefab.transform.rotation);
                             placedBuilding.GetComponent<BuildingInstance>().GridPosition = pos;
-                            gridSystem.GetCell(pos).isUsed = true;
-                            gridSystem.GetCell(pos).building = placedBuilding;
-                            gridSystem.GetCell(pos).buildingType = selectedBuilding;
+                            GridSystem.instance.GetCell(pos).isUsed = true;
+                            GridSystem.instance.GetCell(pos).building = placedBuilding;
+                            GridSystem.instance.GetCell(pos).buildingType = selectedBuilding;
                         }
                     }
             }
@@ -50,7 +49,7 @@ public class BuildingPlacer : MonoBehaviour
                 BuildingInstance instance = hit.collider.gameObject.GetComponent<BuildingInstance>();
                 if (instance == null)
                     return;
-                gridSystem.GetCell(instance.GridPosition).isUsed = false;
+                GridSystem.instance.GetCell(instance.GridPosition).isUsed = false;
                 Destroy(hit.collider.gameObject);
             }
         }

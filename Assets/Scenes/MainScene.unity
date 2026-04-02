@@ -152,7 +152,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40d176ddf6b137d4e91c40ea4539cefd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BuildingPlacer
-  gridSystem: {fileID: 305594926}
   placeBuildingAction: {fileID: 4219744007288840994, guid: 9a2bbaa9678d83a40b6dc08fec465fd6, type: 3}
   layerMask:
     serializedVersion: 2
@@ -2445,6 +2444,10 @@ PrefabInstance:
     - target: {fileID: 4148480006492158908, guid: 4b6d747131252f34495358aa08ab5e91, type: 3}
       propertyPath: m_Radius
       value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4148480006492158908, guid: 4b6d747131252f34495358aa08ab5e91, type: 3}
+      propertyPath: m_StoppingDistance
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5134693987034774818, guid: 4b6d747131252f34495358aa08ab5e91, type: 3}
       propertyPath: m_Radius

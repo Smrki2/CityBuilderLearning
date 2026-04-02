@@ -1,17 +1,15 @@
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 
-public class StorageBuilding : MonoBehaviour
+public class StorageBuilding : Building
 {
-    [SerializeField] BuildingDataSO buildingDataSO;
     private Dictionary<ResourceType, float> storage;
     private float maxCapacity;
 
     private void Awake()
     {
         storage = new Dictionary<ResourceType, float>();
-        maxCapacity = buildingDataSO.maxCapacity;
+        maxCapacity = BuildingDataSO.maxCapacity;
     }
 
     public void Add(ResourceType type, float value)

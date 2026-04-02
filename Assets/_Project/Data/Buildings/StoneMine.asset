@@ -23,4 +23,4 @@ MonoBehaviour:
   resourceTypeCost: 1
   resourceCost: 0
   productionTime: 2
-  maxCapacity: 5
+  maxCapacity: 10
