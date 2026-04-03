@@ -1,32 +1,29 @@
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
-public class ProductionBuilding : MonoBehaviour
+public class ProductionBuilding : Building
 {
     // ------------ TREBALO BI DA SE NAPRAVI BUILDING KLASA KOJA CE DA BUDE MAIN I DECA BUDU PRODUCTION BUILDINZI ITD OSTALE KLASE BUILDINGA
-    [SerializeField] BuildingDataSO buildingDataSO;
     private float productionTime;
-    private float buildingCost, buildingProduction, buildingConsumption;
+    private float buildingCost, buildingProductionAmount, buildingConsumptionAmount;
     private ResourceType buildingCostType, buildingProductionType, buildingConsumptionType;
     private float timer = 0;
     private float inputCapacity, outputCapacity;
-    private Dictionary<ResourceType, float> inputStorage;
-    private Dictionary<ResourceType, float> outputStorage;
+    private ResourceContainer inputStorage;
+    private ResourceContainer outputStorage;
 
     private void Awake()
     {
-        buildingCost = buildingDataSO.resourceCost;
-        buildingCostType = buildingDataSO.resourceTypeCost;
-        buildingProduction = buildingDataSO.resourceProduction;
-        buildingProductionType = buildingDataSO.resourceTypeProduction;
-        buildingConsumption = buildingDataSO.resourceConsumption;
-        buildingConsumptionType = buildingDataSO.resourceTypeConsumption;
-        productionTime = buildingDataSO.productionTime;
-        inputCapacity = buildingDataSO.maxCapacity;
-        outputCapacity = buildingDataSO.maxCapacity;
-        inputStorage = new Dictionary<ResourceType, float>();
-        outputStorage = new Dictionary<ResourceType, float>();
+        buildingCost = BuildingDataSO.resourceCost;
+        buildingCostType = BuildingDataSO.resourceTypeCost;
+        buildingProductionAmount = BuildingDataSO.resourceProduction;
+        buildingProductionType = BuildingDataSO.resourceTypeProduction;
+        buildingConsumptionAmount = BuildingDataSO.resourceConsumption;
+        buildingConsumptionType = BuildingDataSO.resourceTypeConsumption;
+        productionTime = BuildingDataSO.productionTime;
+        inputCapacity = BuildingDataSO.maxCapacity;
+        outputCapacity = BuildingDataSO.maxCapacity;
+        inputStorage = new ResourceContainer(inputCapacity);
+        outputStorage = new ResourceContainer(outputCapacity);
     }
 
     private void Update()
@@ -41,23 +38,10 @@ public class ProductionBuilding : MonoBehaviour
 
     private void Produce()
     {
-        float currentInput = inputStorage.Values.Sum();
-        if (currentInput < buildingConsumption)
-            return;
-        float currentOutput = outputStorage.Values.Sum();
-        if (currentOutput + buildingProduction > outputCapacity)
-            return;
-
-        if (outputStorage.ContainsKey(buildingProductionType))
+        if (inputStorage.GetAmount(buildingConsumptionType) >= buildingConsumptionAmount && outputStorage.HasSpace(buildingProductionAmount))
         {
-            outputStorage[buildingProductionType] += buildingProduction;
+            inputStorage.TryTake(buildingConsumptionType, buildingConsumptionAmount);
+            outputStorage.Add(buildingProductionType, buildingProductionAmount);
         }
-        else
-        {
-            outputStorage[buildingProductionType] = buildingProduction;
-        }
-
-        ResourceManager.instance.Add(buildingProductionType, buildingProduction);
-        ResourceManager.instance.Spend(buildingConsumptionType, buildingConsumption);
     }
 }

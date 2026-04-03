@@ -1,59 +1,32 @@
-using System.Collections.Generic;
-using System.Linq;
-
+using UnityEngine;
 public class StorageBuilding : Building
 {
-    private Dictionary<ResourceType, float> storage;
     private float maxCapacity;
+    private ResourceContainer storage;
 
     private void Awake()
     {
-        storage = new Dictionary<ResourceType, float>();
         maxCapacity = BuildingDataSO.maxCapacity;
+        storage = new ResourceContainer(maxCapacity);
     }
 
     public void Add(ResourceType type, float value)
     {
-        if (storage.ContainsKey(type))
-        {
-            storage[type] += value;
-        }
-        else
-        {
-            storage[type] = value;
-        }
+        storage.Add(type, value);
     }
 
-    public bool Take(ResourceType type, float value)
+    public bool TryTake(ResourceType type, float value)
     {
-        if (!storage.ContainsKey(type))
-        {
-            storage[type] = 0;
-        }
-        if (storage[type] >= value)
-        {
-            storage[type] -= value;
-            return true;
-        }
-        else
-            return false;
+        return storage.TryTake(type, value);
     }
 
-    public float GetResourceAmount(ResourceType type)
+    public float GetAmount(ResourceType type)
     {
-        if (!storage.ContainsKey(type))
-        {
-            storage[type] = 0;
-        }
-        return storage[type];
+        return storage.GetAmount(type);
     }
 
     public bool HasSpace(float value)
     {
-        float storageSum = storage.Values.Sum();
-        if (maxCapacity - storageSum > value)
-            return true;
-        else 
-            return false;
+        return storage.HasSpace(value);
     }
 }
