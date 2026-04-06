@@ -35,14 +35,21 @@ public class TransportResourceJob : Job
     {
         if (jobPhase == JobPhase.GoingToSource)
         {
-            jobPhase = JobPhase.GoingToTarget;
+            if(source.TryTakeResource(resourceType, amount))
+            {
+                villager.PickUpResource(resourceType, amount);
+                jobPhase = JobPhase.GoingToTarget;
+            }
         }
         else if (jobPhase == JobPhase.GoingToTarget)
         {
-            isCompleted = true;
-            //end job
+            if (target.HasSpace(villager.GetCarriedAmount()))
+            {
+                float tempAmount = villager.DropOffResource();
+                target.AddResource(resourceType, tempAmount);
+                isCompleted = true;
+            }
         }
-
     }
     public enum JobPhase
     {

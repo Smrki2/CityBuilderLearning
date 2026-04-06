@@ -3,10 +3,23 @@ using UnityEngine;
 
 public class JobManager : MonoBehaviour
 {
+    [SerializeField] private Building source;
+    [SerializeField] private Building target;
     public static JobManager instance;
     private List<Villager> villagerList;
     private List<Job> jobList;
 
+    private void Start()
+    {
+        source.AddResource(ResourceType.Wood, 50);
+
+        AddJob(new TransportResourceJob(
+            source,
+            target,
+            10,
+            ResourceType.Wood
+        ));
+    }
     private void Awake()
     {
         if(instance == null)

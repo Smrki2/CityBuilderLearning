@@ -8,11 +8,15 @@ public class Villager : MonoBehaviour
     private bool isMoving;
     private ResourceType carriedResourceType;
     private float carriedAmount;
-    private float maxCarryCapacity;
+    [SerializeField] float maxCarryCapacity;
 
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
+    }
+    private void Start()
+    {
+        JobManager.instance.AddVillager(this);
     }
 
     private void Update()
@@ -39,4 +43,16 @@ public class Villager : MonoBehaviour
         agent.SetDestination(destination);
         isMoving = true;
     }
+    public void PickUpResource(ResourceType resourceType, float amount)
+    {
+        carriedResourceType = resourceType;
+        carriedAmount = Mathf.Min(amount, maxCarryCapacity);
+    }
+    public float DropOffResource()
+    {
+        float tempAmount = carriedAmount;
+        carriedAmount = 0;
+        return tempAmount;
+    }
+    public float GetCarriedAmount() {  return carriedAmount; }
 }

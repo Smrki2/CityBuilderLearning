@@ -44,4 +44,21 @@ public class ProductionBuilding : Building
             outputStorage.Add(buildingProductionType, buildingProductionAmount);
         }
     }
+
+    public override bool TryTakeResource(ResourceType resourceType, float amount)
+    {
+        return outputStorage.TryTake(resourceType, amount);
+    }
+    public override void AddResource(ResourceType resourceType, float amount)
+    {
+        inputStorage.Add(resourceType, amount);
+    }
+    public override bool HasResource(ResourceType resourceType, float amount)
+    {
+        return outputStorage.GetAmount(resourceType) >= amount;
+    }
+    public override bool HasSpace(float amount)
+    {
+        return inputStorage.HasSpace(amount);
+    }
 }

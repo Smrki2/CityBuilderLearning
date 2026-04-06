@@ -1,6 +1,8 @@
 using UnityEngine;
 public class StorageBuilding : Building
 {
+    [SerializeField] private ResourceType debugType;
+    [SerializeField] private float debugAmount;
     private float maxCapacity;
     private ResourceContainer storage;
 
@@ -9,23 +11,27 @@ public class StorageBuilding : Building
         maxCapacity = BuildingDataSO.maxCapacity;
         storage = new ResourceContainer(maxCapacity);
     }
+    private void Update()
+    {
+        Debug.Log($"{gameObject.name} ima {storage.GetAmount(debugType)}");
+    }
 
-    public void Add(ResourceType type, float value)
+    public override void AddResource(ResourceType type, float value)
     {
         storage.Add(type, value);
     }
 
-    public bool TryTake(ResourceType type, float value)
+    public override bool TryTakeResource(ResourceType type, float value)
     {
         return storage.TryTake(type, value);
     }
 
-    public float GetAmount(ResourceType type)
+    public override bool HasResource(ResourceType type, float amount)
     {
-        return storage.GetAmount(type);
+        return storage.GetAmount(type) >= amount;
     }
 
-    public bool HasSpace(float value)
+    public override bool HasSpace(float value)
     {
         return storage.HasSpace(value);
     }
