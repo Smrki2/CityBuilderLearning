@@ -39,17 +39,16 @@ public class BuildingPlacer : MonoBehaviour
                         {
                             Vector3 place = new Vector3(GridSystem.instance.GetCell(pos).cellPosition.x + 0.5f, constructionSitePrefab.GetComponent<Renderer>().bounds.size.y / 2, GridSystem.instance.GetCell(pos).cellPosition.y + 0.5f);
                             placedBuilding = Instantiate(constructionSitePrefab, place, constructionSitePrefab.transform.rotation);
-                            placedBuilding.GetComponent<BuildingInstance>().GridPosition = pos;
-                            placedBuilding.GetComponent<ConstructionSite>().SetBuildData(selectedBuilding);
+                            placedBuilding.GetComponent<ConstructionSite>().GridPosition = pos;
+                            placedBuilding.GetComponent<ConstructionSite>().Initialize(selectedBuilding);
                         }
                     }
             }
             else if(hit.collider.gameObject.layer == LayerMask.NameToLayer("Building") && demolishMode)
             {
-                BuildingInstance instance = hit.collider.gameObject.GetComponent<BuildingInstance>();
-                if (instance == null)
-                    return;
-                GridSystem.instance.GetCell(instance.GridPosition).isUsed = false;
+                Building building = hit.collider.gameObject.GetComponent<Building>();
+                if (building == null) return;
+                GridSystem.instance.GetCell(building.GridPosition).isUsed = false;
                 Destroy(hit.collider.gameObject);
             }
         }

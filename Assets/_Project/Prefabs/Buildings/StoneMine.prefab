@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 8869473430930207179}
   - component: {fileID: 8111179944940266079}
   - component: {fileID: 1238327920281765161}
-  - component: {fileID: 8011434550247946942}
   - component: {fileID: 1163928162746882044}
   m_Layer: 7
   m_Name: StoneMine
@@ -128,18 +127,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ProductionBuilding
   buildingDataSO: {fileID: 11400000, guid: e780346f9ad9b8c499af2811dd9d53b3, type: 2}
---- !u!114 &8011434550247946942
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7133125726522113907}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb62f03b803860844b7269537455c0dc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BuildingInstance
 --- !u!208 &1163928162746882044
 NavMeshObstacle:
   m_ObjectHideFlags: 0

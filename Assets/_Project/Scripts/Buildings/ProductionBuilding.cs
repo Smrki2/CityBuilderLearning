@@ -3,34 +3,21 @@ using UnityEngine;
 public class ProductionBuilding : Building
 {
     // ------------ TREBALO BI DA SE NAPRAVI BUILDING KLASA KOJA CE DA BUDE MAIN I DECA BUDU PRODUCTION BUILDINZI ITD OSTALE KLASE BUILDINGA
-    private float productionTime;
-    private float buildingCost, buildingProductionAmount, buildingConsumptionAmount;
-    private ResourceType buildingCostType, buildingProductionType, buildingConsumptionType;
     private float timer = 0;
-    private float inputCapacity, outputCapacity;
     private ResourceContainer inputStorage;
     private ResourceContainer outputStorage;
 
-    protected override void Awake()
+    public override void Initialize(BuildingDataSO data)
     {
-        base.Awake();
-        buildingCost = BuildingDataSO.resourceCost;
-        buildingCostType = BuildingDataSO.resourceTypeCost;
-        buildingProductionAmount = BuildingDataSO.resourceProduction;
-        buildingProductionType = BuildingDataSO.resourceTypeProduction;
-        buildingConsumptionAmount = BuildingDataSO.resourceConsumption;
-        buildingConsumptionType = BuildingDataSO.resourceTypeConsumption;
-        productionTime = BuildingDataSO.productionTime;
-        inputCapacity = BuildingDataSO.maxCapacity;
-        outputCapacity = BuildingDataSO.maxCapacity;
-        inputStorage = new ResourceContainer(inputCapacity);
-        outputStorage = new ResourceContainer(outputCapacity);
+        base.Initialize(data);
+        inputStorage = new ResourceContainer(BuildingDataSO.maxCapacity);
+        outputStorage = new ResourceContainer(BuildingDataSO.maxCapacity);
     }
 
     private void Update()
     {
         timer += Time.deltaTime;
-        if(timer >=  productionTime)
+        if(timer >=  BuildingDataSO.productionTime)
         {
             Produce();
             timer = 0;
@@ -39,10 +26,10 @@ public class ProductionBuilding : Building
 
     private void Produce()
     {
-        if (inputStorage.GetAmount(buildingConsumptionType) >= buildingConsumptionAmount && outputStorage.HasSpace(buildingProductionAmount))
+        if (inputStorage.GetAmount(BuildingDataSO.resourceTypeConsumption) >= BuildingDataSO.resourceConsumption && outputStorage.HasSpace(BuildingDataSO.resourceProduction))
         {
-            inputStorage.TryTake(buildingConsumptionType, buildingConsumptionAmount);
-            outputStorage.Add(buildingProductionType, buildingProductionAmount);
+            inputStorage.TryTake(BuildingDataSO.resourceTypeConsumption, BuildingDataSO.resourceConsumption);
+            outputStorage.Add(BuildingDataSO.resourceTypeProduction, BuildingDataSO.resourceProduction);
         }
     }
 

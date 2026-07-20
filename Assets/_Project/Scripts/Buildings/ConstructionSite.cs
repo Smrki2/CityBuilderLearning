@@ -3,15 +3,12 @@ using UnityEngine;
 public class ConstructionSite : Building
 {
     private ResourceContainer storage;
-    private float maxCapacity;
     private GameObject placedBuilding;
 
-    protected override void Awake() { }
-    public void SetBuildData(BuildingDataSO buildingDataSO)
+    public override void Initialize(BuildingDataSO data)
     {
-        BuildingDataSO = buildingDataSO;
-        maxCapacity = BuildingDataSO.resourceCost;
-        storage = new ResourceContainer(maxCapacity);
+        base.Initialize(data);
+        storage = new ResourceContainer(BuildingDataSO.resourceCost);
     }
 
     public override void AddResource(ResourceType type, float value)
@@ -19,8 +16,9 @@ public class ConstructionSite : Building
         storage.Add(type, value);
         if(!storage.HasSpace(1))
         {
+            Vector2Int gridPos = GridPosition;
             placedBuilding = Instantiate(BuildingDataSO.buildingPrefab, transform.position, BuildingDataSO.buildingPrefab.transform.rotation);
-            Vector2Int gridPos = GetComponent<BuildingInstance>().GridPosition;
+            placedBuilding.GetComponent<Building>().GridPosition = gridPos;
             GridSystem.instance.GetCell(gridPos).building = placedBuilding;
             GridSystem.instance.GetCell(gridPos).buildingType = BuildingDataSO;
             GridSystem.instance.GetCell(gridPos).isUsed = true;

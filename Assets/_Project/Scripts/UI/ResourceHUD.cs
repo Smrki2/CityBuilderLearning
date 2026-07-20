@@ -8,12 +8,13 @@ public class ResourceHUD : MonoBehaviour
     [SerializeField] TextMeshProUGUI goldText;
     [SerializeField] TextMeshProUGUI waterText;
 
-    private void Update()
+    private void OnEnable() => ResourceManager.instance.OnResourcesChanged += Refresh;
+    private void OnDisable() => ResourceManager.instance.OnResourcesChanged -= Refresh;
+    private void Refresh()
     {
         woodText.SetText("Wood: " + ResourceManager.instance.GetResourceOfType(ResourceType.Wood).ToString());
         stoneText.SetText("Stone: " + ResourceManager.instance.GetResourceOfType(ResourceType.Stone).ToString());
         goldText.SetText("Gold: " + ResourceManager.instance.GetResourceOfType(ResourceType.Gold).ToString());
         waterText.SetText("Water: " + ResourceManager.instance.GetResourceOfType(ResourceType.Water).ToString());
     }
-
 }

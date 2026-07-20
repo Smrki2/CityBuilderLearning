@@ -1,11 +1,12 @@
 using System.Collections.Generic;
-using UnityEditor.SceneManagement;
 using UnityEngine;
 
 public class ResourceManager : MonoBehaviour
 {
     public static ResourceManager instance;
+    public event System.Action OnResourcesChanged;
     private List<StorageBuilding> storageBuildings = new List<StorageBuilding>();
+    public void NotifyResourcesChanged() => OnResourcesChanged?.Invoke();
     public void Awake()
     {
         if(instance == null)

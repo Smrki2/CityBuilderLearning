@@ -12,8 +12,7 @@ GameObject:
   - component: {fileID: 3157302085495903391}
   - component: {fileID: 3176362042377927464}
   - component: {fileID: 7019004940265001680}
-  - component: {fileID: 636770914818696613}
-  - component: {fileID: -8258342083936697940}
+  - component: {fileID: 3162251255326986119}
   - component: {fileID: -5760916038386162092}
   m_Layer: 7
   m_Name: ConstructionSite
@@ -115,19 +114,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &636770914818696613
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1526382761001823333}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb62f03b803860844b7269537455c0dc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BuildingInstance
---- !u!114 &-8258342083936697940
+--- !u!114 &3162251255326986119
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

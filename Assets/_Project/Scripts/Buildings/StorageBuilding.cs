@@ -3,14 +3,11 @@ public class StorageBuilding : Building
 {
     [SerializeField] private ResourceType debugType;
     [SerializeField] private float debugAmount;
-    private float maxCapacity;
     private ResourceContainer storage;
-    protected override void Awake()
+    public override void Initialize(BuildingDataSO data)
     {
-        base.Awake();
-
-        maxCapacity = BuildingDataSO.maxCapacity;
-        storage = new ResourceContainer(maxCapacity);
+        base.Initialize(data);
+        storage = new ResourceContainer(BuildingDataSO.maxCapacity);
     }
     private void Update()
     {
