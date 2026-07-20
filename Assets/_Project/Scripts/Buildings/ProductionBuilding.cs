@@ -11,8 +11,9 @@ public class ProductionBuilding : Building
     private ResourceContainer inputStorage;
     private ResourceContainer outputStorage;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         buildingCost = BuildingDataSO.resourceCost;
         buildingCostType = BuildingDataSO.resourceTypeCost;
         buildingProductionAmount = BuildingDataSO.resourceProduction;

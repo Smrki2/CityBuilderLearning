@@ -5,53 +5,48 @@ using UnityEngine;
 public class ResourceManager : MonoBehaviour
 {
     public static ResourceManager instance;
-    private Dictionary<ResourceType, float> resourceManager;
+    private List<StorageBuilding> storageBuildings = new List<StorageBuilding>();
     public void Awake()
     {
         if(instance == null)
             instance = this;
         else
             Destroy(gameObject);
-
-        resourceManager = new Dictionary<ResourceType, float>
-        { 
-            { ResourceType.Wood,20},
-            { ResourceType.Stone,15},
-            { ResourceType.Water,10},
-            { ResourceType.Gold, 5}
-        };
     }
 
-    public void Add(ResourceType type, float value)
+    public void RegisterStorage(StorageBuilding storageBuilding)
     {
-        if (!resourceManager.ContainsKey(type))
+        if (!storageBuildings.Contains(storageBuilding))
         {
-            resourceManager[type] = value;
+            storageBuildings.Add(storageBuilding);
         }
-        else
-            resourceManager[type] += value;
+    }
+    public void UnregisterStorage(StorageBuilding storageBuilding)
+    {
+        if (storageBuildings.Contains(storageBuilding))
+        {
+            storageBuildings.Remove(storageBuilding);
+        }
+    }
+    public float GetResourceOfType(ResourceType type)
+    {
+        float amount = 0f;
+        foreach(StorageBuilding storage in storageBuildings)
+        {
+            amount += storage.GetResourceOfType(type);
+        }
+        return amount;
     }
 
-    public bool Spend(ResourceType type, float value)
+    public bool CheckResourceAvailability(ResourceType type, float amount)
     {
-        if (!resourceManager.ContainsKey(type))
+        float sum = 0f;
+        foreach(StorageBuilding storage in storageBuildings)
         {
-            resourceManager[type] = 0;
+            sum += storage.GetResourceOfType(type);
+            if (sum >= amount)
+                return true;
         }
-        if (resourceManager[type] >= value)
-        {
-            resourceManager[type] -= value;
-            return true;
-        }else 
-            { return false; }
-    }
-
-    public float Get(ResourceType type)
-    {
-        if (!resourceManager.ContainsKey(type))
-        {
-            resourceManager[type] = 0;
-        }
-        return resourceManager[type];
+        return false;
     }
 }

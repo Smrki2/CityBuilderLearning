@@ -10,10 +10,10 @@ public class ResourceHUD : MonoBehaviour
 
     private void Update()
     {
-        woodText.SetText("Wood: " + ResourceManager.instance.Get(ResourceType.Wood).ToString());
-        stoneText.SetText("Stone: " + ResourceManager.instance.Get(ResourceType.Stone).ToString());
-        goldText.SetText("Gold: " + ResourceManager.instance.Get(ResourceType.Gold).ToString());
-        waterText.SetText("Water: " + ResourceManager.instance.Get(ResourceType.Water).ToString());
+        woodText.SetText("Wood: " + ResourceManager.instance.GetResourceOfType(ResourceType.Wood).ToString());
+        stoneText.SetText("Stone: " + ResourceManager.instance.GetResourceOfType(ResourceType.Stone).ToString());
+        goldText.SetText("Gold: " + ResourceManager.instance.GetResourceOfType(ResourceType.Gold).ToString());
+        waterText.SetText("Water: " + ResourceManager.instance.GetResourceOfType(ResourceType.Water).ToString());
     }
 
 }

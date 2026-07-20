@@ -5,9 +5,10 @@ public class StorageBuilding : Building
     [SerializeField] private float debugAmount;
     private float maxCapacity;
     private ResourceContainer storage;
-
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
+
         maxCapacity = BuildingDataSO.maxCapacity;
         storage = new ResourceContainer(maxCapacity);
     }
@@ -34,5 +35,9 @@ public class StorageBuilding : Building
     public override bool HasSpace(float value)
     {
         return storage.HasSpace(value);
+    }
+    public float GetResourceOfType(ResourceType type)
+    {
+        return storage.GetAmount(type);
     }
 }

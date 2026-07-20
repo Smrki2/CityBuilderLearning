@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8869473430930207179}
   - component: {fileID: 8111179944940266079}
   - component: {fileID: 1238327920281765161}
-  - component: {fileID: 1972144905726219178}
+  - component: {fileID: 8011434550247946942}
   - component: {fileID: 1163928162746882044}
   m_Layer: 7
   m_Name: StoneMine
@@ -128,7 +128,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ProductionBuilding
   buildingDataSO: {fileID: 11400000, guid: e780346f9ad9b8c499af2811dd9d53b3, type: 2}
---- !u!114 &1972144905726219178
+--- !u!114 &8011434550247946942
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

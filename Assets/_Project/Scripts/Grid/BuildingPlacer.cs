@@ -5,11 +5,13 @@ public class BuildingPlacer : MonoBehaviour
 {
     private Camera camera;
     [SerializeField] private InputActionReference placeBuildingAction;
+    [SerializeField] private GameObject constructionSitePrefab;
     [SerializeField] LayerMask layerMask;
 
     private BuildingDataSO selectedBuilding;
     private Ray ray;
     private GameObject placedBuilding;
+
     private RaycastHit hit;
     private bool demolishMode = false;
     private void Awake()
@@ -33,14 +35,12 @@ public class BuildingPlacer : MonoBehaviour
                 if (pos.x >= 0 && pos.x < GridSystem.instance.gridSize.x && pos.y >= 0 && pos.y < GridSystem.instance.gridSize.y)
                     if (!GridSystem.instance.GetCellState(pos))
                     {
-                        if (ResourceManager.instance.Spend(selectedBuilding.resourceTypeCost, selectedBuilding.resourceCost))
+                        if (ResourceManager.instance.CheckResourceAvailability(selectedBuilding.resourceTypeCost, selectedBuilding.resourceCost))
                         {
-                            Vector3 place = new Vector3(GridSystem.instance.GetCell(pos).cellPosition.x + 0.5f, selectedBuilding.buildingPrefab.GetComponent<Renderer>().bounds.size.y / 2, GridSystem.instance.GetCell(pos).cellPosition.y + 0.5f);
-                            placedBuilding = Instantiate(selectedBuilding.buildingPrefab, place, selectedBuilding.buildingPrefab.transform.rotation);
+                            Vector3 place = new Vector3(GridSystem.instance.GetCell(pos).cellPosition.x + 0.5f, constructionSitePrefab.GetComponent<Renderer>().bounds.size.y / 2, GridSystem.instance.GetCell(pos).cellPosition.y + 0.5f);
+                            placedBuilding = Instantiate(constructionSitePrefab, place, constructionSitePrefab.transform.rotation);
                             placedBuilding.GetComponent<BuildingInstance>().GridPosition = pos;
-                            GridSystem.instance.GetCell(pos).isUsed = true;
-                            GridSystem.instance.GetCell(pos).building = placedBuilding;
-                            GridSystem.instance.GetCell(pos).buildingType = selectedBuilding;
+                            placedBuilding.GetComponent<ConstructionSite>().SetBuildData(selectedBuilding);
                         }
                     }
             }
