@@ -17,11 +17,15 @@ public class StorageBuilding : Building
     public override void AddResource(ResourceType type, float value)
     {
         storage.Add(type, value);
+        ResourceManager.instance.NotifyResourcesChanged();
     }
 
     public override bool TryTakeResource(ResourceType type, float value)
     {
-        return storage.TryTake(type, value);
+        bool tryAttempt = storage.TryTake(type, value);
+        if(tryAttempt)
+            ResourceManager.instance.NotifyResourcesChanged();
+        return tryAttempt;
     }
 
     public override bool HasResource(ResourceType type, float amount)

@@ -24,7 +24,6 @@ public class ResourceContainer
         {
             resourceStorage[type] += amount;
         }
-        ResourceManager.instance.NotifyResourcesChanged();
     }
 
     public bool TryTake(ResourceType type, float amount) 
@@ -32,7 +31,6 @@ public class ResourceContainer
         if(resourceStorage.ContainsKey(type) && resourceStorage[type] >= amount)
         {
             resourceStorage[type]-=amount;
-            ResourceManager.instance.NotifyResourcesChanged();
             return true;
         }
         else 
